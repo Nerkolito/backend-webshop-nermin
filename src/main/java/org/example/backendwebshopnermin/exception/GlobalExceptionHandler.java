@@ -20,16 +20,16 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleProductNotFound(ProductNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 Map.of(
-                        "timestamp", LocalDateTime.now().toString(),     // När felet inträffade
-                        "status", HttpStatus.NOT_FOUND.value(),          // HTTP 404
-                        "error", "Produkt hittades inte",                // Feltyp
-                        "message", ex.getMessage()                       // Detaljerat felmeddelande
+                        "timestamp", LocalDateTime.now().toString(),
+                        "status", HttpStatus.NOT_FOUND.value(),
+                        "error", "Produkt hittades inte",
+                        "message", ex.getMessage()
                 )
         );
     }
 
     /**
-     * Hanterar när en order inte hittas (felaktigt ID).
+     * Hanterar när en order inte hittas.
      */
     @ExceptionHandler(OrderNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleOrderNotFound(OrderNotFoundException ex) {
@@ -44,7 +44,22 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Fångar alla andra oväntade fel som inte hanteras specifikt ovan.
+     * Hanterar när lagret inte räcker till för beställningen.
+     */
+    @ExceptionHandler(InsufficientStockException.class)
+    public ResponseEntity<Map<String, Object>> handleInsufficientStock(InsufficientStockException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                Map.of(
+                        "timestamp", LocalDateTime.now().toString(),
+                        "status", HttpStatus.CONFLICT.value(), // 409
+                        "error", "Otillräckligt lager",
+                        "message", ex.getMessage()
+                )
+        );
+    }
+
+    /**
+     * Fångar alla andra oväntade fel.
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneric(Exception ex) {
