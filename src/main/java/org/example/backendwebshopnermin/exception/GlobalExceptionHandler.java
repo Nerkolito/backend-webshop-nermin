@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(
                 Map.of(
                         "timestamp", LocalDateTime.now().toString(),
-                        "status", HttpStatus.CONFLICT.value(), // 409
+                        "status", HttpStatus.CONFLICT.value(),
                         "error", "Otillräckligt lager",
                         "message", ex.getMessage()
                 )
