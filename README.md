@@ -127,11 +127,4 @@ Kör med:
 - All validering sker både i modeller och controller.
 - Alla fel returnerar tydliga JSON-fel via `GlobalExceptionHandler`.
 
----
-## 📌 Kodstruktur och framtida användning
-Vissa getter-metoder i modellen (t.ex. Order, Product, OrderItem) visas som "no usages" i IDE:n – men de behövs och kommer att användas för:
-- JSON-serialisering/deserialisering: Spring Boot (och Jackson) använder getters automatiskt för att konvertera objekt till JSON.
-- Frontend-kommunikation: När REST-API:et används från t.ex. React eller Postman kommer dessa getters att användas för att returnera data.
-- Utökad funktionalitet: Vid framtida funktioner som "uppdatera order", "sök produkt" eller liknande.
-- Därför är de kvar även om de inte direkt används av Java-logik i nuläget.
----
+
